@@ -1,38 +1,33 @@
+import os
+from PIL import Image
 import torch
 from diffusers import StableDiffusionImg2ImgPipeline
-from PIL import Image
-import os
 
 
-os.makedirs("output", exist_ok=True)
+if not os.path.exists("output"):
+    os.mkdir("output")
+
 
 pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5"
 )
 pipe = pipe.to("cpu")
 
-init_image = Image.open("input/input_image.jpg").convert("RGB")
-init_image = init_image.resize((512, 512))
+img = Image.open("input/input_image.jpg").convert("RGB")
+img = img.resize((512, 512))
 
-prompt = (
-    "ultra realistic portrait, natural lighting, sharp focus, "
-    "high detail, professional photography, cinematic look"
-)
 
-negative_prompt = (
-    "blurry, distorted face, extra limbs, deformed body, "
-    "low quality, dark image, horror, abstract"
-)
+prompt = "realistic photo, good lighting, clear details"
 
 
 result = pipe(
     prompt=prompt,
-    negative_prompt=negative_prompt,
-    image=init_image,
+    image=img,
     strength=0.5,
-    guidance_scale=8.0
+    guidance_scale=7
 ).images[0]
 
-result.save("output/generated_image.jpg")
+result.save("output/result.jpg")
 
-print("High-quality image generated successfully!")
+print("Image generated successfully")
+
