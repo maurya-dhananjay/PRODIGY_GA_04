@@ -17,17 +17,17 @@ img = Image.open("input/input_image.jpg").convert("RGB")
 img = img.resize((512, 512))
 
 
-prompt = "realistic photo, good lighting, clear details"
+prompt = " more realistic photo, good to lighting, clear details"
 
 
 result = pipe(
     prompt=prompt,
     image=img,
     strength=0.5,
-    guidance_scale=6
+    guidance_scale=7
 ).images[0]
 
 result.save("output/result.jpg")
 
-print("Image generated successfully")
+print(" High Qality Image generated successfully")
 
