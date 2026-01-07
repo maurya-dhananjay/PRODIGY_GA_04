@@ -24,7 +24,7 @@ result = pipe(
     prompt=prompt,
     image=img,
     strength=0.5,
-    guidance_scale=7
+    guidance_scale=6
 ).images[0]
 
 result.save("output/result.jpg")
